@@ -17,7 +17,7 @@ public class CountryAnalyzer extends PersonAnalyzer {
         for (Person person : super.getPersons()) {
             String country = person.getCountry();
             if (result.containsKey(country)) {
-                result.put(country, result.get(country));
+                result.put(country, result.get(country) + 1);
             } else {
                 result.put(country, 1);
             }

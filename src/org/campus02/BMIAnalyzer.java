@@ -16,8 +16,7 @@ public class BMIAnalyzer extends PersonAnalyzer {
     @Override
     public void analyze() {
         for (Person person : super.getPersons()) {
-            double bmi = 0;
-            calcBmi(person);
+            double bmi = calcBmi(person);
             Pair<Person, Double> bmiPair = new Pair<>(person, bmi);
             result.add(bmiPair);
         }

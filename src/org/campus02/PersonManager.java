@@ -3,7 +3,7 @@ package org.campus02;
 import java.util.ArrayList;
 
 public class PersonManager {
-    private ArrayList<Person> persons;
+    private final ArrayList<Person> persons = new ArrayList<>();
 
     public void addPerson(Person p) {
         //this.persons.add(p);

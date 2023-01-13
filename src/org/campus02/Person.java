@@ -16,9 +16,11 @@ public class Person {
 
 	public Person(String firstname, String lastname, char gender, int age, String country, int salary, String eyeColor, int weight, int size) {
 		this.firstname = firstname;
+		this.lastname = lastname;
 		this.gender = gender;
 		this.age = age;
 		this.country = country;
+		this.salary = salary;
 		this.weight = weight;
 		this.size = size;
 		setEyeColor(eyeColor);
@@ -85,6 +87,7 @@ public class Person {
 			case "blau":
 			case "grün":
 				this.eyeColor = eyeColor;
+				break;
 			default:
 				this.eyeColor = "undefined";
 				break;
