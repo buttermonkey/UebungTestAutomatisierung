@@ -11,53 +11,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class GenderAnalyzerTest {
 
-    Person person1;
-    Person person2;
-    Person person3;
-
     ArrayList<Person> persons = new ArrayList<>();
 
     @BeforeEach
     void setUp() {
-        person1 = new Person(
-                "max",
-                "mustermann",
-                'M',
-                22,
-                "AUT",
-                2000,
-                "blau",
-                80,
-                180
-        );
-
-        person2 = new Person(
-                "susi",
-                "sorglos",
-                'W',
-                22,
-                "AUT",
-                4000,
-                "gelb",
-                60,
-                160
-        );
-
-        person3 = new Person(
-                "max",
-                "mustermann",
-                'M',
-                22,
-                "AUT",
-                2000,
-                "blau",
-                80,
-                200
-        );
-
-        persons.add(person1);
-        persons.add(person2);
-        persons.add(person3);
+        persons.add(TestDataProvider.people.get("male-1"));
+        persons.add(TestDataProvider.people.get("male-2"));
+        persons.add(TestDataProvider.people.get("female-1"));
     }
 
     /**
@@ -65,11 +25,14 @@ class GenderAnalyzerTest {
      */
     @Test
     void analyze() {
+        final int expectedMaleAverage = (TestDataProvider.MALE_HEIGHT_1 + TestDataProvider.MALE_HEIGHT_2) / 2;
+        final int expectedFemaleAverage = TestDataProvider.FEMALE_HEIGHT_1;
+
         GenderAnalyzer genderAnalyzer = new GenderAnalyzer();
         genderAnalyzer.setPersons(persons);
         genderAnalyzer.analyze();
 
-        assertEquals(190, genderAnalyzer.getAvgM());
-        assertEquals(160, genderAnalyzer.getAvgW());
+        assertEquals(expectedMaleAverage, genderAnalyzer.getAvgM());
+        assertEquals(expectedFemaleAverage, genderAnalyzer.getAvgW());
     }
 }

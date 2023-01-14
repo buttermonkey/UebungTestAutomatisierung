@@ -7,58 +7,32 @@ import org.campus02.Person;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class MaxSalaryAnalyzerTest {
 
-    Person person1;
-    Person person2;
-
-    ArrayList<Person> persons = new ArrayList<>();
+    List<Person> people;
 
     @BeforeEach
     void setUp() {
-        person1 = new Person(
-                "max",
-                "mustermann",
-                'M',
-                22,
-                "AUT",
-                2000,
-                "blau",
-                80,
-                180
-        );
-
-        person2 = new Person(
-                "susi",
-                "sorglos",
-                'W',
-                22,
-                "AUT",
-                4000,
-                "gelb",
-                60,
-                160
-        );
-
-        persons.add(person1);
-        persons.add(person2);
+        people = List.copyOf(TestDataProvider.people.values());
     }
+
     /**
      * check personsWithHighestSalary
      */
     @Test
     void analyze() {
         MaxSalaryAnalyzer maxSalaryAnalyzer = new MaxSalaryAnalyzer();
-        maxSalaryAnalyzer.setPersons(persons);
+        maxSalaryAnalyzer.setPersons(people);
         maxSalaryAnalyzer.analyze();
 
-        HashSet<Person> personsWithHighestSalary = maxSalaryAnalyzer.getPersonsWithHighestSalary();
+        Set<Person> personsWithHighestSalary = maxSalaryAnalyzer.getPersonsWithHighestSalary();
         assertEquals(1, personsWithHighestSalary.size());
-        assertTrue(personsWithHighestSalary.contains(person2));
-        assertFalse(personsWithHighestSalary.contains(person1));
+        assertTrue(personsWithHighestSalary.contains(TestDataProvider.people.get("max-salary")));
+        assertFalse(personsWithHighestSalary.contains(TestDataProvider.people.get("not-max-salary")));
     }
 }

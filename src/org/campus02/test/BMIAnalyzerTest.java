@@ -7,80 +7,45 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class BMIAnalyzerTest {
 
-    Person person1;
-    Person person2;
-    Person person3;
+	List<Person> people;
+	Person bmiPerson;
+	double expectedBmi;
+	BMIAnalyzer bmiAnalyzer;
 
-    ArrayList<Person> persons = new ArrayList<>();
+	@BeforeEach
+	void setUp() {
+		people = List.copyOf(TestDataProvider.people.values());
+		bmiPerson = TestDataProvider.people.get("bmi");
+		expectedBmi = TestDataProvider.BMI_WEIGHT / (TestDataProvider.BMI_HEIGHT * TestDataProvider.BMI_HEIGHT / 10000.0);
+		bmiAnalyzer = new BMIAnalyzer();
+	}
 
-    @BeforeEach
-    void setUp() {
-        person1 = new Person(
-                "max",
-                "mustermann",
-                'M',
-                22,
-                "AUT",
-                2000,
-                "blau",
-                80,
-                180
-        );
+	@Test
+	void calcBmi() {
+		assertEquals(expectedBmi, bmiAnalyzer.calcBmi(bmiPerson), .001);
+	}
 
-        person2 = new Person(
-                "susi",
-                "sorglos",
-                'W',
-                22,
-                "AUT",
-                4000,
-                "gelb",
-                60,
-                160
-        );
+	/**
+	 * check result
+	 */
+	@Test
+	void analyze() {
+		bmiAnalyzer.setPersons(people);
+		bmiAnalyzer.analyze();
 
-        person3 = new Person(
-                "max",
-                "mustermann",
-                'M',
-                22,
-                "AUT",
-                2000,
-                "blau",
-                80,
-                200
-        );
+		ArrayList<Pair<Person, Double>> results = bmiAnalyzer.getResult();
+        Double actualBmi = results.stream()
+                .filter(v -> v.getKey().equals(bmiPerson))
+                .map(Pair::getValue)
+                .findFirst()
+                .orElseThrow();
 
-        persons.add(person1);
-        persons.add(person2);
-        persons.add(person3);
-    }
-
-    @Test
-    void calcBmi() {
-        BMIAnalyzer bmiAnalyzer = new BMIAnalyzer();
-        assertEquals(80.0 / (1.8 * 1.8), bmiAnalyzer.calcBmi(person1), .001);
-    }
-
-    /**
-     * check result
-     */
-    @Test
-    void analyze() {
-        BMIAnalyzer bmiAnalyzer = new BMIAnalyzer();
-        bmiAnalyzer.setPersons(persons);
-        bmiAnalyzer.analyze();
-
-        ArrayList<Pair<Person, Double>> results = bmiAnalyzer.getResult();
-        results.forEach(result -> {
-            Person person = result.getKey();
-            Double bmi = result.getValue();
-            assertEquals(bmiAnalyzer.calcBmi(person), bmi, .001);
-        });
-    }
+        assertEquals(expectedBmi, actualBmi, .001);
+	}
 }

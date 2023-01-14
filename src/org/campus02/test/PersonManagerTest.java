@@ -1,24 +1,24 @@
 package org.campus02.test;
 
-import org.campus02.MaxSalaryAnalyzer;
 import org.campus02.Person;
+import org.campus02.PersonAnalyzer;
 import org.campus02.PersonManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class PersonManagerTest {
 
-    Person person1;
-
-    MaxSalaryAnalyzer maxSalaryAnalyzer;
+    Person person;
+    MockAnalyzer analyzer;
 
     @BeforeEach
     void setUp() {
-        person1 = new Person(
+        person = new Person(
                 "max",
                 "mustermann",
                 'W',
@@ -30,17 +30,36 @@ class PersonManagerTest {
                 180
         );
 
-        maxSalaryAnalyzer = new MaxSalaryAnalyzer();
+        analyzer = new MockAnalyzer();
     }
 
     @Test
     void addPerson() {
         PersonManager personManager = new PersonManager();
-        personManager.addPerson(person1);
+        personManager.addPerson(person);
 
-        personManager.doAnalysis(maxSalaryAnalyzer);
-        HashSet<Person> personsWithHighestSalary = maxSalaryAnalyzer.getPersonsWithHighestSalary();
-        assertEquals(1, personsWithHighestSalary.size());
-        assertTrue(personsWithHighestSalary.contains(person1));
+        personManager.doAnalysis(analyzer);
+        assertTrue(analyzer.wasAnalyzeCalled());
+        assertTrue(analyzer.wasPersonAnalyzed(person));
+    }
+
+    private static class MockAnalyzer extends PersonAnalyzer {
+
+        boolean analyzeWasCalled = false;
+        Set<Person> analyzedPeople = new HashSet<>();
+
+        @Override
+        public void analyze() {
+            analyzeWasCalled = true;
+            analyzedPeople = Set.copyOf(this.getPersons());
+        }
+
+        public boolean wasAnalyzeCalled() {
+            return analyzeWasCalled;
+        }
+
+        public boolean wasPersonAnalyzed(Person person) {
+            return analyzedPeople.contains(person);
+        }
     }
 }
