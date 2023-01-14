@@ -1,15 +1,16 @@
 package org.campus02;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public abstract class PersonAnalyzer {
-    private ArrayList<Person> persons = new ArrayList<>();
+    private List<Person> persons = new ArrayList<>();
 
-    public ArrayList<Person> getPersons() {
+    public List<Person> getPersons() {
         return persons;
     }
 
-    public void setPersons(ArrayList<Person> persons) {
+    public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
 
