@@ -1,8 +1,5 @@
-package org.campus02.test;
+package org.campus02.stoff;
 
-import org.campus02.Person;
-import org.campus02.PersonAnalyzer;
-import org.campus02.PersonManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

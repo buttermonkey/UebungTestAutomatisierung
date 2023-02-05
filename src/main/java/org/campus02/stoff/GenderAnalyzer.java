@@ -1,4 +1,4 @@
-package org.campus02;
+package org.campus02.stoff;
 
 public class GenderAnalyzer extends PersonAnalyzer {
 

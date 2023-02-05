@@ -1,6 +1,4 @@
-package org.campus02.test;
-
-import org.campus02.Person;
+package org.campus02.stoff;
 
 import java.util.HashMap;
 import java.util.Map;

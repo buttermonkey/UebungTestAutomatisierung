@@ -1,8 +1,5 @@
-package org.campus02.test;
+package org.campus02.stoff;
 
-import org.campus02.BMIAnalyzer;
-import org.campus02.Pair;
-import org.campus02.Person;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

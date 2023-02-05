@@ -1,12 +1,8 @@
-package org.campus02.test;
+package org.campus02.stoff;
 
-import org.campus02.MaxSalaryAnalyzer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.campus02.Person;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 

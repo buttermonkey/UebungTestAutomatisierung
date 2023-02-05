@@ -1,4 +1,4 @@
-package org.campus02;
+package org.campus02.stoff;
 
 import java.util.ArrayList;
 import java.util.List;
